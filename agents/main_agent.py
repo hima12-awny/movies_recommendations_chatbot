@@ -43,9 +43,11 @@ class ChatAgent:
 
     def __init__(self) -> None:
 
-        self.query_expander_agent = QueryExpansionAgent()
+        with st.spinner("Loading Query Expansion Agent..."):
+            self.query_expander_agent = QueryExpansionAgent()
 
-        self.rtrvr_agent = CustomRetrieverTool()
+        with st.spinner("Loading Retriever Agent..."):
+            self.rtrvr_agent = CustomRetrieverTool()
 
         self.chat_history: list[BaseMessage] = [
             SystemMessage(system_prompt),
