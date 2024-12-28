@@ -4,3 +4,6 @@ llama_index==0.12.8
 loguru==0.7.3
 nest_asyncio==1.6.0
 streamlit==1.40.1
+llama-index-embeddings-huggingface
+llama-index-llms-huggingface
+llama-index-core
