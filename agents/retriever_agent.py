@@ -9,7 +9,7 @@ from langchain_core.tools import tool
 class CustomRetrieverTool:
     def __init__(self,
                  embed_model_name='all-MiniLM-L6-v2',
-                 PERSIST_DIR="./storage"
+                 PERSIST_DIR="agents\storage"
                  ) -> None:
 
         embed_model = HuggingFaceEmbedding(model_name=embed_model_name)
