@@ -2,7 +2,7 @@ import nest_asyncio
 from llama_index.core import StorageContext, load_index_from_storage
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core.tools import ToolMetadata, RetrieverTool
-from llama_index.postprocessor.colbert_rerank import ColbertRerank
+# from llama_index.postprocessor.colbert_rerank import ColbertRerank
 
 
 class CustomRetrieverTool:
@@ -20,14 +20,14 @@ class CustomRetrieverTool:
 
         self.retriever = RetrieverTool(
             retriever=index.as_retriever(
-                similarity_top_k=10,
-                clean_up_tokenization_spaces=True,
+                similarity_top_k=2,
+                # clean_up_tokenization_spaces=True,
             ),
             metadata=ToolMetadata(
                 name='Sreach',
                 description="This tool searches for the most suitable movies based on user preferences and emotions by analyzing their query. It uses a retriever to find the top 10 relevant movie candidates from the database, followed by a re-ranking step using ColBERT to identify the top 2 most fitting results. Pass the complete user message as the query to ensure accurate recommendations that align with user needs.",
             ),
-            node_postprocessors=[ColbertRerank(top_n=2)],
+            # node_postprocessors=[ColbertRerank(top_n=2)],
         )
 
     def retrieve_movies(self, query: str) -> str:
@@ -44,7 +44,10 @@ class CustomRetrieverTool:
         Returns:
         - most_movies_matched: A RetrieverTool instance that processes the query and returns the most suitable movie recommendations.
         """
+        
+        print("Retrieving Movies.. from CustomRetrieverTool...")
         most_movies_matched = self.retriever.call(query).content
+        print("Retrieving Movies.. from CustomRetrieverTool... Done")
 
         context = f"""
         \rUse This Movies Information That can fit when user needs, it can answer the 
