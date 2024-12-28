@@ -3,7 +3,6 @@ from llama_index.core import StorageContext, load_index_from_storage
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core.tools import ToolMetadata, RetrieverTool
 from llama_index.postprocessor.colbert_rerank import ColbertRerank
-from langchain_core.tools import tool
 
 
 class CustomRetrieverTool:

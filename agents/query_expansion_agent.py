@@ -17,20 +17,17 @@ And if user Tells that want another thing what you give before, make different q
 
 class QueryExpansionAgent:
     def __init__(self,
-                 api_key: str,
                  system_prompt=system_prompt_query_expansion
                  ) -> None:
-
-        self.api_key = api_key
 
         self.chat_history: list[BaseMessage] = [
             SystemMessage(system_prompt)
         ]
 
-    def expand_query(self, user_query: str, model_name: str) -> str:
+    def expand_query(self, user_query: str, model_name: str, api_key: str) -> str:
 
         self.llm = ChatGroq(model=model_name,
-                            api_key=self.api_key,
+                            api_key=api_key,
                             max_tokens=100)  # type:ignore
 
         self.chat_history.append(HumanMessage(user_query))

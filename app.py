@@ -44,8 +44,7 @@ if "chat_handler" not in st.session_state:
 
 if "agent" not in st.session_state:
     with st.spinner("Loading Agents..."):
-        st.session_state.agent = ChatAgent(
-            api_key=st.session_state.groq_api_key)
+        st.session_state.agent = ChatAgent()
 
 
 chat_handler = st.session_state.chat_handler
@@ -69,14 +68,20 @@ if user_input:
     controller.empty()
 
     chat_handler.add_and_render_msg(user_input, role="user")
+    response = ""
 
-    with st.spinner("Thinking..."):
-        response = agent.send_and_get_ai_response(
-            user_query=user_input,
-            model_name=st.session_state.model_name,
-            is_search_in_db=st.session_state.get("is_search_query", False),
-            is_enhance_query=st.session_state.get("is_enhance_query", False),
-        )
+    try:
+        with st.spinner("Thinking..."):
+            response = agent.send_and_get_ai_response(
+                user_query=user_input,
+                api_key=st.session_state.groq_api_key,
+                model_name=st.session_state.model_name,
+                is_search_in_db=st.session_state.get("is_search_query", False),
+                is_enhance_query=st.session_state.get(
+                    "is_enhance_query", False),
+            )
+    except Exception as e:
+        st.error(f"Error: {e}")
 
     chat_handler.add_and_render_msg(response, role="ai")
     st.rerun()

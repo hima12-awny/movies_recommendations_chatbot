@@ -41,12 +41,9 @@ system_prompt = """
 
 class ChatAgent:
 
-    def __init__(self,
-                 api_key: str) -> None:
+    def __init__(self) -> None:
 
-        self.api_key = api_key
-
-        self.query_expander_agent = QueryExpansionAgent(api_key=api_key,)
+        self.query_expander_agent = QueryExpansionAgent()
 
         self.rtrvr_agent = CustomRetrieverTool()
 
@@ -60,13 +57,14 @@ class ChatAgent:
     def send_and_get_ai_response(
         self, user_query: str,
         model_name: str,
+        api_key: str,
         is_search_in_db: bool = False,
         is_enhance_query: bool = False,
 
     ) -> str:
 
         self.llm = ChatGroq(model=model_name,
-                            api_key=self.api_key)  # type: ignore
+                            api_key=api_key)  # type: ignore
 
         self.add_to_history(HumanMessage(user_query))
 
@@ -79,7 +77,8 @@ class ChatAgent:
                 with st.spinner("Improve Query..."):
                     final_query = self.query_expander_agent.expand_query(
                         user_query,
-                        model_name=model_name)
+                        model_name=model_name,
+                        api_key=api_key)
 
                 lg.debug(f"Choosing to Retrieve Movies With\n\
                     \rUser Query: {user_query}\n\
