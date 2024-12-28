@@ -1,0 +1,6 @@
+langchain_core==0.3.28
+langchain_groq==0.2.2
+llama_index==0.12.8
+loguru==0.7.3
+nest_asyncio==1.6.0
+streamlit==1.40.1
