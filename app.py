@@ -80,11 +80,13 @@ if user_input:
                 is_enhance_query=st.session_state.get(
                     "is_enhance_query", False),
             )
+            
+        chat_handler.add_and_render_msg(response, role="ai")
+        st.rerun()
     except Exception as e:
         st.error(f"Error: {e}")
 
-    chat_handler.add_and_render_msg(response, role="ai")
-    st.rerun()
+
 
 
 with controller.popover(
