@@ -7,3 +7,4 @@ streamlit==1.40.1
 llama-index-embeddings-huggingface
 llama-index-llms-huggingface
 llama-index-core
+llama-index-postprocessor-colbert-rerank
