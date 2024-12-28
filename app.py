@@ -84,7 +84,7 @@ if user_input:
         st.error(f"Error: {e}")
 
     chat_handler.add_and_render_msg(response, role="ai")
-    st.rerun()
+    # st.rerun()
 
 
 with controller.popover(
